@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Deformable Neural Radiance Fields creates free-viewpoint portraits (nerfies) from casually captured videos.">
+  <meta name="keywords" content="Nerfies, D-NeRF, NeRF">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Simulating Fluids in Real-World Still Images</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Simulating Fluids in Real-World Still Images</h1>
+          
+          <h1 class="title is-3 publication-title">Supplementary Material</h1>
+          <h1 class="title is-5 publication-title"><a href="../index.html">Main Project Page</a></h1>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="hero-body">
+   <div class="container is-max-desktop">
+    <li> <a href="../static/assets/supp.pdf">Supplementary PDF</a></li><br>
+    <!--<li><a href="#animate_results">Animated results with estimated motion </a></li>-->
+    <li><a href="./index_animated_results.html">1.Animated Resulst and Comparisons to Previous Work</a></li>
+    <li><a href="./index_simulated_results.html">2.Simulated Results</a></li>
+	<li><a href="./index_replacement_results.html">3.Replacement effects</a></li>
+	<li><a href="./index_3d_obj_editing_results.html">4.3D Object Editing effects</a></li>
+    <li><a href="./index_comparison_motion.html">5.Comparisons among 2.5D simulation, 2D simulation, no simulation</a></li>
+    <li><a href="./index_limitation.html">6.Limitation </a></li>
+    <li><a href="./static/assets/AlphaAblation/AblAlphaLearning2.pdf">7.Alpha learning ablation</a></li>
+	
+  </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="hero-body">
+    <div class="container">
+        <h2 class="title is-3"><a name="replacement_results" id="replacement_results">3. Replacement effects</h2>
+
+        <div class="content has-text-centered">
+          <video id="replay-video"
+                 autoplay controls muted loop
+                 width="90%">
+            <source src="static/assets/Replace/Replace1_batch.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+
+        <div class="content has-text-centered">
+          <video id="replay-video"
+                 autoplay controls muted loop
+                 width="90%">
+            <source src="static/assets/Replace/Replace2_batch.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+
+
+        <div class="content has-text-centered">
+          <video id="replay-video"
+                 autoplay controls muted loop
+                 width="90%">
+            <source src="static/assets/Replace/Replace3_batch.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+
+        <div class="content has-text-centered">
+          <video id="replay-video"
+                 autoplay controls muted loop
+                 width="90%">
+            <source src="static/assets/Replace/Replace4_batch.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+
+
+        <div class="content has-text-centered">
+          <video id="replay-video"
+                 autoplay controls muted loop
+                 width="90%">
+            <source src="static/assets/Replace/Replace5_batch.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+
+        <div class="content has-text-centered">
+          <video id="replay-video"
+                 autoplay controls muted loop
+                 width="90%">
+            <source src="static/assets/Replace/Replace6_batch.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+
+        <div class="content has-text-centered">
+          <video id="replay-video"
+                 autoplay controls muted loop
+                 width="90%">
+            <source src="static/assets/Replace/Replace7_batch.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+
+        <div class="content has-text-centered">
+          <video id="replay-video"
+                 autoplay controls muted loop
+                 width="90%">
+            <source src="static/assets/Replace/Replace8_batch.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+
+		<!--<h3 class="title is-5" align="center">Comparable results w/ or w/o SLR</h3>-->
+
+
+      </div>
+    </div>
+
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="static/assets/SimulatingFluids.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/simon3dv/SLR-SFS" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+
+          <p>
+            This website is borrowed from <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

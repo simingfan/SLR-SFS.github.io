@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Deformable Neural Radiance Fields creates free-viewpoint portraits (nerfies) from casually captured videos.">
+  <meta name="keywords" content="Nerfies, D-NeRF, NeRF">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Simulating Fluids in Real-World Still Images</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Simulating Fluids in Real-World Still Images</h1>
+          
+		  <div class="is-size-5 publication-authors">
+		  
+            <span class="author-block">
+              <a href="http://simon3dv.github.io/">Siming Fan</a>*<sup>1</sup>,</span>
+            <span class="author-block">	
+              <a href="">Jingtan Piao</a>*<sup>2,3</sup>,</span>
+            <span class="author-block">
+              <a href="https://kwanyeelin.github.io/">Kwan-Yee Lin</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=AerkT0YAAAAJ&hl=en">Chen Qian</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="http://www.ee.cuhk.edu.hk/~hsli/">Hongsheng Li</a><sup>2,3</sup>,
+            </span>
+          </div>
+		  
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>SenseTime,</span>
+            <span class="author-block"><sup>2</sup>CUHK-SenseTime Joint Laboratory,</span>
+            <span class="author-block"><sup>3</sup>Chinese University of Hong Kong</span>
+          </div>
+		  
+          <div class="is-size-5 publication-authors">
+		  *Denote Equal Contribution
+		  </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="static/assets/SimulatingFluids.pdf"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+           
+			  
+              <span class="link-block">
+                <a href="./supplementary/index.html"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <!--<span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>-->
+                  <span>Supplementary Page</span>
+                </a>
+              </span>
+
+			  
+              <!-- Dataset Link. -->
+              <span class="link-block">
+                <a href="dataset/index.html"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Data</span>
+                  </a>
+				  
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/simon3dv/SLR-SFS"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+			  
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <video id="teaser" autoplay muted loop height="100% ">
+        <source src="static/assets/teaser.mp4"
+                type="video/mp4">
+      </video>
+      <!--<h2 class="subtitle has-text-centered">-->
+	  <h2 class="subtitle ">
+        <!--<span class="dnerf">Surface-Based Layered Representation </span> turns single still image into animated videos.-->
+		<b>Overview.</b>Given a still image and a coarse hint of motion as inputs, our model estimates fluid motion to generate animating videos.
+        To be able to represent complex scenes like transparent fluid shown in the figure, we propose to learn a single background RGBA layer and per-frame surface liquid RGBA layer to compose each frame of the final animated video (<font color=orange>orange</font> solid arrows) indicate the data flow.
+        Besides, a simulation-based motion editing method (<font color=blue>blue </font> dot arrow) in the figure is introduced to generate realistic effects like fluid-rock interaction, which cannot be easily captured by learning based method. The edited motion direction is represented as red arrows.
+		
+		</h2>
+    </div>
+  </div>
+</section>
+
+
+<section class="hero is-light is-light">
+  <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-steve">
+          <video poster="" id="steve" autoplay controls muted loop height="100%">
+            <source src="static/assets/fullpipeline/00057.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-chair-tp">
+          <video poster="" id="chair-tp" autoplay controls muted loop height="100%">
+            <source src="static/assets/fullpipeline/00068.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-shiba">
+          <video poster="" id="shiba" autoplay controls muted loop height="100%">
+            <source src="static/assets/fullpipeline/00127.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-fullbody">
+          <video poster="" id="fullbody" autoplay controls muted loop height="100%">
+            <source src="static/assets/fullpipeline/00116.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-blueshirt">
+          <video poster="" id="blueshirt" autoplay controls muted loop height="100%">
+            <source src="static/assets/fullpipeline/00133.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-mask">
+          <video poster="" id="mask" autoplay controls muted loop height="100%">
+            <source src="static/assets/fullpipeline/00058.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-coffee">
+          <video poster="" id="coffee" autoplay controls muted loop height="100%">
+            <source src="static/assets/fullpipeline/mist-and-rocks-at-niagara-falls-basin_w1494yigh_1080__D.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-toby">
+          <video poster="" id="toby" autoplay controls muted loop height="100%">
+            <source src="static/assets/fullpipeline/00121.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+
+		<div class="item item-toby">
+          <video poster="" id="toby" autoplay controls muted loop height="100%">
+            <source src="static/assets/fullpipeline/videoblocks-flow-of-water-in-mountain-river-close-up-cold-water-of-mountain-river-flows-between-stones_bplv6wtdb_1080__D.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+
+		<div class="item item-toby">
+          <video poster="" id="toby" autoplay controls muted loop height="100%">
+            <source src="static/assets/fullpipeline/mini-waterfall-in-autumn_-k6f6higs_1080__D.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            We have witnessed great progress in physical-based simulation and neural video generation for animating fluids. However, the two types of methods suffer from different drawbacks. The physical-based simulation methods are built upon manual-designed environments with specific materials, motion trajectories and textures, thus are only capable of animating particular fluids in synthetic scenarios. On the other hand, the neural video generation methods usually encode and warp the entire scene as a whole, which are generally not aware of the complex contents, such as transparency, collision and thin structures that frequently appear in real-world scenarios. In this work, we tackle the problem of real-world fluid animation from a still image.
+          </p>
+          <p>
+            The key of our system is a <b>S</b>urface-based <b>L</b>ayered <b>R</b>epresentation<b>(SLR)</b> deriving from video decomposition, where the scene is decoupled into a surface liquid layer and an impervious background layer with corresponding transparencies to characterize the composition of the two layers. The animated video can be produced through warping only the surface liquid layer according to the estimation of fluid motions and recombining it with the background.
+          </p>
+          <p>
+            In addition, we introduce <b>S</b>urface-only <b>F</b>luid <b>S</b>imulation<b>(SFS)</b>, a 2.5D fluid calculation version, to as a replacement of motion estimation. Specifically, we leverage the triangular mesh based on a monocular depth estimator to represent the liquid surface layer, and simulate the motion in the physic-based framework with inspiration of classic theory of hybrid Lagrangian-Eulerian method, along with a learnable network so as to adapt to complex image textures. We demonstrate the effectiveness of proposed system through comparison with existing methods in both standard objective metrics and subjective ranking scores. Extensive experiments not only indicate our method's competitive performance for common fluid scenes, but also better robustness and reasonability under complex transparent fluid scenarios.
+          </p>
+          <p>
+            Moreover, as the proposed surface-based layer representation and surface-only fluid simulation naturally disentangle the scene, interactive-editing such as adding objects on the river could be easily achieved with realistic results.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+    <!-- Paper video. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Overview Video</h2>
+        <div class="publication-video">
+          <!--<iframe src="static/assets/overview.mp4"
+                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>-->
+		  <video id="overview"
+                 controls
+                 preload
+                 width="100%">
+           <source src="static/assets/overview.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+    <!--/ Paper video. -->
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <!-- Animation. -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Animated Results</h2>
+
+
+        <!-- Interpolating. -->
+        <!--<h3 class="title is-4">Waterfall</h3>
+        <div class="content has-text-justified">
+          <p>
+            We can also animate the scene by interpolating the deformation latent codes of two input
+            frames. Use the slider here to linearly interpolate between the left frame and the right
+            frame.
+          </p>
+        </div>-->
+
+        <div class="content has-text-centered">
+          <video id="replay-video"
+                 autoplay controls muted loop
+                 width="90%">
+            <source src="static/assets/AnimatedResults/00116_crf32.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+		<h3 class="title is-5" align="center">Waterfall</h3>
+
+        <div class="content has-text-centered">
+          <video id="replay-video"
+                 autoplay controls muted loop
+                 width="90%">
+            <source src="static/assets/AnimatedResults/00057_crf32.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+		<h3 class="title is-5" align="center">Shallow Water</h3>
+
+
+      </div>
+    </div>
+    <!--/ Animation. -->
+
+    <div class="columns is-centered">
+
+      <!-- Visual Effects. -->
+      <div class="column">
+        <div class="content">
+          <h2 class="title is-3">Simulation Results</h2>
+          <p>
+            Using <b>Surface-only Fluid Simulation(SFS)</b> you can edit a vivid motion fluid-rock interaction.
+		  </p>
+          <video id="Simulation" autoplay controls muted loop height="100%">
+            <source src="static/assets/Simulation/Simulation3.3.1.mp4"
+                    type="video/mp4">
+          </video>
+		  <video id="Simulation_ZoomIn" autoplay controls muted loop height="100%">
+            <!--<source src="static/assets/Simulation/Simulation3.3.2.mp4"
+                    type="video/mp4">-->
+			<source src="static/assets/Simulation/SimulationExtra_batch.mp4"
+                    type="video/mp4">
+
+          </video>
+			<p>(Up)Animated with 75% week incompresible simulated motion and our SLR.
+			   (Down)Animated with 100% incompresible simulated motion and w/o SLR.</p>
+        </div>
+      </div>
+      <!--/ Visual Effects. -->
+
+      <!-- Matting. -->
+      <div class="column">
+        <h2 class="title is-3">3D Editing Effects</h2>
+        <div class="columns is-centered">
+          <div class="column content">
+            <p>
+              You can put a 3D model in of our <b>Surface-Based Layered Representation(SLR)</b>.
+            </p>
+            <video id="Editing" autoplay controls muted loop height="100%">
+              <source src="static/assets/Simulation/Editing3.4.1.mp4"
+                      type="video/mp4">
+            </video>
+            <video id="EditingAndSimulation" autoplay controls muted loop height="100%">
+              <source src="static/assets/Simulation/Editing3.4.2.mp4"
+                      type="video/mp4">
+            </video>
+			<p>3D model above water is placed in front of fluid layer, and the part under water is placed to BG layer (Up)w/o simulation.(Down)w/ simulation.</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <!--/ Matting. -->
+
+    <div class="columns is-centered">
+
+      <!-- Visual Effects. -->
+      <div class="column">
+        <div class="content">
+          <h2 class="title is-3">Fluid Layer Replacement</h2>
+          <p>
+            Using <b>Surface-Based Layered Representation(SLR)</b> you can edit fluid layer.
+		  </p>
+          <video id="FGReplace1" autoplay controls muted loop height="100%">
+            <source src="static/assets/Replace/ReplaceFG1_batch.mp4"
+                    type="video/mp4">
+          </video>
+		  <video id="Simulation_ZoomIn" autoplay controls muted loop height="100%">
+            <source src="static/assets/Replace/ReplaceFG2_batch.mp4"
+                    type="video/mp4">
+          </video>
+			<p>Replace Fluid Layer with 0.5xFluidLayer+0.5xSpaceVideo</p>
+          <p><b>——"As if the Silver River fell from azure sky."</b></p>
+          <p><b>——"疑似银河落九天"</b></p>
+        </div>
+      </div>
+      <!--/ Visual Effects. -->
+
+      <div class="column">
+        <h2 class="title is-3">BG Layer Replacement</h2>
+        <div class="columns is-centered">
+          <div class="column content">
+            <p>
+             Using <b>Surface-Based Layered Representation(SLR)</b> you can edit background layer.
+
+
+            </p>
+            <video id="Editing" autoplay controls muted loop height="100%">
+              <source src="static/assets/Replace/ReplaceBG1_batch.mp4"
+                      type="video/mp4">
+            </video>
+            <video id="EditingAndSimulation" autoplay controls muted loop height="100%">
+              <source src="static/assets/Replace/ReplaceBG2_batch.mp4"
+                      type="video/mp4">
+            </video>
+			   <p>Replace BG Layer with 0.25xBGLayer+0.75xSpaceVideo</p>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{fan2022arxiv,
+  author    = {Siming Fan, Jingtan Piao, Kwan-Yee Lin, Chen Qian, Hongsheng Li},
+  title     = {Simulating Fluids in Real-World Still Images},
+  journal   = {arxiv},
+  year      = {2022},
+}</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="static/assets/SimulatingFluids.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/simon3dv/SLR-SFS" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+		
+          <p>
+            This website is borrowed from <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>.
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

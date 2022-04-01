@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Deformable Neural Radiance Fields creates free-viewpoint portraits (nerfies) from casually captured videos.">
+  <meta name="keywords" content="Nerfies, D-NeRF, NeRF">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Simulating Fluids in Real-World Still Images</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Simulating Fluids in Real-World Still Images</h1>
+          
+          <h1 class="title is-3 publication-title">Supplementary Material</h1>
+          <h1 class="title is-5 publication-title"><a href="../index.html">Main Project Page</a></h1>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="hero-body">
+   <div class="container is-max-desktop">
+    <li> <a href="../static/assets/supp.pdf">Supplementary PDF</a></li><br>
+    <!--<li><a href="#animate_results">Animated results with estimated motion </a></li>-->
+    <li><a href="./index_animated_results.html">1.Animated Resulst and Comparisons to Previous Work</a></li>
+    <li><a href="./index_simulated_results.html">2.Simulated Results</a></li>
+	<li><a href="./index_replacement_results.html">3.Replacement effects</a></li>
+	<li><a href="./index_3d_obj_editing_results.html">4.3D Object Editing effects</a></li>
+    <li><a href="./index_comparison_motion.html">5.Comparisons among 2.5D simulation, 2D simulation, no simulation</a></li>
+    <li><a href="./index_limitation.html">6.Limitation </a></li>
+    <li><a href="./static/assets/AlphaAblation/AblAlphaLearning2.pdf">7.Alpha learning ablation </a></li>
+	
+  </div>
+  </div>
+</section>
+
+<!--
+<section class="section">
+  <div class="container is-max-desktop">
+  <div class="hero-body">-->
+<!-- Animation. -->
+<section class="section">
+  <div class="hero-body">
+    <div class="container">
+    <div class="container">
+        <h2 class="title is-3"><a name="animate_comparisons" id="animate_comparisons">1. Animated Resulst and Comparisons to Previous Work</h2>
+
+        <div class="content has-text-centered">
+          <video id="replay-video"
+                 autoplay controls muted loop
+                 width="90%">
+            <source src="static/assets/AnimatedResults/waterfall/base-of-waterfall-flowing-across-rock-formation-4k_vk1q9ltjg__D_batch.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+		
+		<h3 class="title is-5" align="center">Waterfall:Edge of Rock will not Collapse</h3>
+		
+        <div class="content has-text-centered">
+          <video id="replay-video"
+                 autoplay controls muted loop
+                 width="90%">
+            <source src="static/assets/AnimatedResults/waterfall/falling-water-down-mountainside_wysjrqjgr_1080__D_batch.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+		<h3 class="title is-5" align="center">Waterfall: Background Rock can be seen</h3>
+
+        <!--
+        <div class="content has-text-centered">
+          <video id="replay-video"
+                 autoplay controls muted loop
+                 width="90%">
+            <source src="static/assets/AnimatedResults/stream/videoblocks-flow-of-water-in-mountain-river-close-up-cold-water-of-mountain-river-flows-between-stones_bplv6wtdb_1080__D_batch.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+		
+        <div class="content has-text-centered">
+          <video id="replay-video"
+                 autoplay controls muted loop
+                 width="90%">
+            <source src="static/assets/AnimatedResults/stream/videoblocks-river-with-waterfall-close-up-close-up-cascade-of-waterfall-among-stones-rocky-mountain-river-on-summer-time_rpuytwkpb_1080__D_batch.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+
+				
+        <div class="content has-text-centered">
+          <video id="replay-video"
+                 autoplay controls muted loop
+                 width="90%">
+            <source src="static/assets/AnimatedResults/stream/videoblocks-streaming-river-from-mountains-landscape-with-stream-flowing-between-rocks-power-of-nature_rwsnizkvb_1080__D_batch.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+
+		
+		
+		<h3 class="title is-5" align="center">Flowing Through Rock</h3>
+
+		-->
+
+        <div class="content has-text-centered">
+          <video id="replay-video"
+                 autoplay controls muted loop
+                 width="90%">
+            <source src="static/assets/AnimatedResults/shallow-water/rushing-water-rocks_wkvzvb-s_1080__D_batch.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+		<h3 class="title is-5" align="center">Shallow Water: Rock under Water is static</h3>
+		
+        <div class="content has-text-centered">
+          <video id="replay-video"
+                 autoplay controls muted loop
+                 width="90%">
+            <source src="static/assets/AnimatedResults/fountain/fountain-loop-animation_scqh7uhjl_1080__D_batch.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+		<h3 class="title is-5" align="center">Fountain: Rock textures will not move</h3>
+		
+        <div class="content has-text-centered">
+          <video id="replay-video"
+                 autoplay controls muted loop
+                 width="90%">
+            <source src="static/assets/AnimatedResults/fountain/brewer-fountain-in-downtown-boston_njbj_0cw_1080__D_batch.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+		
+		
+		<h3 class="title is-5" align="center">Statue: Static Statue behind water jet</h3>
+		
+		
+        <div class="content has-text-centered">
+          <video id="replay-video"
+                 autoplay controls muted loop
+                 width="90%">
+            <source src="static/assets/AnimatedResults/ocean/steady-ocean-tide_wymjwbfqr_1080__D_batch.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+		<h3 class="title is-5" align="center">Ocean: Comparable Results in non-Transparent Ocean</h3>
+
+        <div class="content has-text-centered">
+          <video id="replay-video"
+                 autoplay controls muted loop
+                 width="90%">
+            <source src="static/assets/AnimatedResults/beaches/clear-waves-crashing-on-the-beach_-kzi1bwls_1080__D_batch.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+		<h3 class="title is-5" align="center">Beaches: Transparent Region Capturing</h3>
+		
+        <div class="content has-text-centered">
+          <video id="replay-video"
+                 autoplay controls muted loop
+                 width="90%">
+            <source src="static/assets/AnimatedResults/mist/mist-and-rocks-at-niagara-falls-basin_w1494yigh_1080__D_batch.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+		<h3 class="title is-5" align="center">Mist: Mist and its Background Rock</h3>
+		
+		
+        <div class="content has-text-centered">
+          <video id="replay-video"
+                 autoplay controls muted loop
+                 width="90%">
+            <source src="static/assets/AnimatedResults/clear-water/Clear_batch.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+		<h3 class="title is-5" align="center">Clear Water: Rock under water will not move</h3>
+		
+        <div class="content has-text-centered">
+          <video id="replay-video"
+                 autoplay controls muted loop
+                 width="90%">
+            <source src="static/assets/AnimatedResults/clear-water/ExtremeClear_batch.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+		<h3 class="title is-5" align="center">Extreme Clear Water: Rock under water will not move, but fluid textures are sparse</h3>
+		
+		
+        <div class="content has-text-centered">
+          <video id="replay-video"
+                 autoplay controls muted loop
+                 width="90%">
+            <source src="static/assets/AnimatedResults/non-transparent/Validation_batch.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+		<h3 class="title is-5" align="center">Comparable results in Holynski's validation set</h3>
+		
+		
+		
+      </div>
+    </div>
+	
+</section>
+    <!--/ Animation. -->
+
+
+<!--
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{park2021nerfies,
+  author    = {Park, Keunhong and Sinha, Utkarsh and Barron, Jonathan T. and Bouaziz, Sofien and Goldman, Dan B and Seitz, Steven M. and Martin-Brualla, Ricardo},
+  title     = {Nerfies: Deformable Neural Radiance Fields},
+  journal   = {ICCV},
+  year      = {2021},
+}</code></pre>
+  </div>
+</section>
+-->
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="static/assets/SimulatingFluids.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/simon3dv/SLR-SFS" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+		
+          <p>
+            This website is borrowed from <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
